@@ -1,0 +1,10 @@
+FROM ruby:2.6.2-alpine3.9
+
+ENV LANG C.UTF-8
+
+RUN apk --update add \
+    build-base \
+    tzdata \
+    vim && \
+    rm -rf /tmp/* /var/cache/apk/*
+    

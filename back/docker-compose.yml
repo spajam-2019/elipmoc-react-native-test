@@ -1,0 +1,16 @@
+
+version: '2'
+
+services:
+  rails:
+    container_name: "back_rails"
+    build:
+      context: .
+      dockerfile: "Dockerfile.dev"
+    command: ash -c "rm -f /tmp/pids/server.pid"
+    env_file:
+      - "./.env.dev"
+    ports:
+      - "3000:3000"
+    tty: true
+    stdin_open: true
