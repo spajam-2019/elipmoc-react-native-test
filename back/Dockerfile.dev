@@ -5,6 +5,18 @@ ENV LANG C.UTF-8
 RUN apk --update add \
     build-base \
     tzdata \
+    sqlite-dev \
+    sqlite \
+    nodejs \
     vim && \
     rm -rf /tmp/* /var/cache/apk/*
     
+RUN gem install bundler
+
+WORKDIR /tmp
+ADD Gemfile Gemfile
+ADD Gemfile.lock Gemfile.lock
+RUN bundle install
+
+WORKDIR /back
+ADD . /back
