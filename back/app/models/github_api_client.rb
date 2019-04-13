@@ -7,6 +7,8 @@ class GithubApiClient
   def initialize
     @http_client = HTTPClient.new
     @http_client.base_url = BASE_URL
+    @http_client.default_header = {Authorization: "token #{ENV["GITHUB_API_TOKEN"]}"}
+
   end
 
   # github_api
