@@ -9,14 +9,17 @@ describe 'Github Api Client' do
   end
 
   it "リポジトリ検索" do
-    body = client.find_repositories "a"
+    body = client.find_repositories "a" ,2
     expect(body["repos"]).to_not eq nil
-    expect(body["now_page"]).to eq 1
+    expect(body["now_page"]).to eq 2
     expect(body["page_count"]).to_not eq nil
-    expect(body["repos"][0]["id"]).to_not eq nil
-    expect(body["repos"][0]["name"]).to_not eq nil
-    expect(body["repos"][0]["lang"]).to_not eq nil
-    expect(body["repos"][0]["star"]).to_not eq nil
-    expect(body["repos"][0]["desc"]).to_not eq nil
+    body["repos"].each {|r|
+      expect(r["id"]).to_not eq nil
+      expect(r["name"]).to_not eq nil
+      expect(r["lang"]).to_not eq nil
+      expect(r["star"]).to_not eq nil
+      expect(r["desc"]).to_not eq nil
+    }
+
   end
 end

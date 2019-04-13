@@ -16,6 +16,27 @@ class GithubApiClient
     convert_response @http_client.get("/")
   end
 
+  #リポジトリ検索
+  # @return {now_page,page_count,repos:{lang,id,name,star,desc}}
+  def find_repositories(keyword, page = 1)
+    body = convert_response @http_client.get("/search/repositories", query: {
+        q: "#{keyword} in:name", sort: "stars", order: "desc", page: page
+    })
+    {
+        "repos" => body["items"].map do |x|
+          {
+              "lang" => x["language"] || "",
+              "id" => x["id"],
+              "name" => x["full_name"],
+              "star" => x["stargazers_count"],
+              "desc" => x["description"] || ""
+          }
+        end,
+        "now_page" => page,
+        "page_count" => body["total_count"]
+    }
+  end
+
   private
 
   def convert_response res
