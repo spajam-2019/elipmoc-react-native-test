@@ -1,3 +1,3 @@
 module.exports= {
-    BACK_IP: ""
+    BACK_URL: ""
 };

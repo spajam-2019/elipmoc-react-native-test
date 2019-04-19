@@ -1,14 +1,14 @@
 import React from 'react';
 import {Text } from 'react-native';
-import Axios from "axios";
-import Env from '../env'
+import { ApiClient } from '../ApiClient';
 
 export default class SettingsScreen extends React.Component {
   constructor(){
       super()
       this.state={text:""}
-      Axios.get(Env.BACK_IP)
-       .then(x=>{this.setState({text:x.data});})
+
+      new ApiClient().FindRepositories("ruscall")
+       .then(x=>this.setState({text:JSON.stringify(x.data)}))
   }
   static navigationOptions = {
     title: 'Search GitHub Repository',
