@@ -2,6 +2,9 @@ require 'httpclient'
 
 BASE_URL = "https://api.github.com/"
 
+#1ページに表示される最大のリポジトリ数
+PAGE_MAX_COUNT = 30.0
+
 class GithubApiClient
 
   def initialize
@@ -33,7 +36,7 @@ class GithubApiClient
           }
         end,
         "now_page" => page,
-        "page_count" => body["total_count"]
+        "page_count" => (body["total_count"] / PAGE_MAX_COUNT + 0.999).to_i
     }
   end
 
