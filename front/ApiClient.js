@@ -10,6 +10,8 @@ export class ApiClient{
 
     //Githubリポジトリ検索のリクエスト
     async FindRepositories(keyword,page=1){
-        return await this.axios.get("github_repositories/find_repositories",{params:{keyword,page}})
+        return (
+            await this.axios.get("github_repositories/find_repositories",{params:{keyword,page}})
+            ).data;
     }
 }
